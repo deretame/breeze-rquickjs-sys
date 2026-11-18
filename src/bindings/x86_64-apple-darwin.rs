@@ -1698,6 +1698,9 @@ unsafe extern "C" {
     ) -> *mut u8;
 }
 unsafe extern "C" {
+    pub fn JS_GetBytecodeVersion() -> ::core::ffi::c_int;
+}
+unsafe extern "C" {
     pub fn JS_ReadObject(
         ctx: *mut JSContext,
         buf: *const u8,
