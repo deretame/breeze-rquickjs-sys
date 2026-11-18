@@ -38786,6 +38786,13 @@ uint8_t *JS_WriteObject(JSContext *ctx, size_t *psize, JSValueConst obj,
     return JS_WriteObject2(ctx, psize, obj, flags, NULL);
 }
 
+/* Breeze: expose the bytecode format version so hosts can version their
+   on-disk bytecode caches instead of probing with a failed JS_ReadObject(). */
+int JS_GetBytecodeVersion(void)
+{
+    return BC_VERSION;
+}
+
 typedef struct BCReaderState {
     JSContext *ctx;
     const uint8_t *buf_start, *ptr, *buf_end;

@@ -4,8 +4,14 @@ Base: `rquickjs-sys 0.12.2` → `quickjs-ng 0.15.1`.
 
 This copy is vendored so Breeze can carry quickjs-ng security fixes and a
 subset of the Telegram quickjs performance work without waiting for a new
-`rquickjs-sys` release. Rust bindings are unchanged; only `quickjs/quickjs.c`
-and `quickjs/dtoa.c` are patched.
+`rquickjs-sys` release. Rust bindings are unchanged except for the additive
+export below; only `quickjs/quickjs.c` and `quickjs/dtoa.c` are patched.
+
+## Added exports
+
+| Symbol | Change |
+|---|---|
+| `int JS_GetBytecodeVersion(void)` | Returns `BC_VERSION` (the stamp `JS_WriteObject` puts at the start of every blob and `JS_ReadObject` validates). Breeze uses it to key the on-disk plugin bytecode cache instead of discovering a mismatch by a failed load. Declared in `quickjs/quickjs.h`, defined right after `JS_WriteObject` in `quickjs/quickjs.c`. |
 
 ## Security backports
 

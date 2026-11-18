@@ -1221,6 +1221,13 @@ JS_EXTERN uint8_t *JS_WriteObject(JSContext *ctx, size_t *psize, JSValueConst ob
 JS_EXTERN uint8_t *JS_WriteObject2(JSContext *ctx, size_t *psize, JSValueConst obj,
                                    int flags, JSSABTab *psab_tab);
 
+/* Version stamp embedded in every serialized object (BC_VERSION in
+   quickjs.c). JS_ReadObject() rejects blobs written by a different
+   version, so hosts can use this to key their on-disk bytecode cache
+   without first attempting (and failing) a load. Changes whenever the
+   bytecode encoding changes. */
+JS_EXTERN int JS_GetBytecodeVersion(void);
+
 /* WARNING: only enable JS_READ_OBJ_BYTECODE on input from a trusted
    writer. The bytecode format is not designed to resist a hostile
    producer; loading adversarial bytecode can lead to memory corruption. */
